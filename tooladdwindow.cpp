@@ -17,27 +17,6 @@ ToolAddWindow::~ToolAddWindow()
     delete ui;
 }
 
-void ToolAddWindow::on_lineEdit_2_selectionChanged()//
-{
-    QString filePath = QFileDialog::getOpenFileName(nullptr, "Choice File", "/path/to/default/directory", "Images (*.png)");
-    if (filePath.isEmpty()) {
-        qDebug() << "FileEmpty";
-        ui->lineEdit_2->setText("double CLICK");
-    }
-
-    // Открываем выбранный файл
-    QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "WrongData";
-        ui->lineEdit_2->setText("double CLICK");
-    }
-    ui->lineEdit_2->setText(filePath);
-    // Считываем данные из файла
-    image = file.readAll();
-    file.close();
-}
-
-
 void ToolAddWindow::on_pushButton_clicked()
 {
     input_tool();
@@ -101,4 +80,27 @@ void ToolAddWindow::input_produser()
     data_base_action->database_refresh();
 }
 
+
+
+void ToolAddWindow::on_pushButton_3_clicked()
+{
+    qDebug()<<"Clicked 2";
+    QString filePath = QFileDialog::getOpenFileName(nullptr, "Choice File", "/path/to/default/directory", "Images (*.png)");
+    if (filePath.isEmpty()) {
+        qDebug() << "FileEmpty";
+        ui->lineEdit_2->setText("WrongData");
+    }
+
+    // Открываем выбранный файл
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "WrongData";
+        ui->lineEdit_2->setText("WrongData");
+    }
+    ui->lineEdit_2->setText(filePath);
+    // Считываем данные из файла
+    image = file.readAll();
+    file.close();
+    qDebug()<<"Clicked 2";
+}
 
