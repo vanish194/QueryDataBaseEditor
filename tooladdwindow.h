@@ -18,14 +18,15 @@ public:
 
 private slots:
 
-    void on_pushButton_clicked();
+    void on_pushButton_CLEAN_clicked();
 
-    void on_pushButton_2_clicked();
-
-
-    void on_comboBox_currentTextChanged(const QString &arg1);
+    void on_pushButton_INPUT_clicked();
 
     void on_pushButton_3_clicked();
+
+    void on_spinBox_outer_diametr_valueChanged(int arg1);
+
+    void on_spinBox_inner_diametr_valueChanged(int arg1);
 
 private:
     Ui::ToolAddWindow *ui;
@@ -36,10 +37,15 @@ private:
     QString inner_diametr;
     QByteArray image;
     QString produser_name;
-    DataBaseAction* data_base_action;
 
+    int tool_description_id;
+    int tool_id;
+    int produser_id;
+    QList<QString> list_produsers;
+    DataBaseAction* data_base_action;
     void input_tool();
     void input_produser();
+    void input_tool_description();
 
 public slots:
     void receive_data_base_action(DataBaseAction *data_base_action2);

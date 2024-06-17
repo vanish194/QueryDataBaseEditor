@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>631</width>
-    <height>382</height>
+    <height>385</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,12 +17,16 @@
    <item row="2" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>toolname</string>
+      <string>tool_name</string>
      </property>
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEdit_7"/>
+    <widget class="QLineEdit" name="lineEdit_tool_name">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="label_7">
@@ -32,7 +36,7 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QLineEdit" name="lineEdit_6"/>
+    <widget class="QLineEdit" name="lineEdit_description"/>
    </item>
    <item row="4" column="0">
     <widget class="QLabel" name="label_6">
@@ -42,7 +46,7 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="QLineEdit" name="lineEdit_5"/>
+    <widget class="QLineEdit" name="lineEdit_legth"/>
    </item>
    <item row="5" column="0">
     <widget class="QLabel" name="label_5">
@@ -51,18 +55,12 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
-    <widget class="QLineEdit" name="lineEdit_4"/>
-   </item>
    <item row="6" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
-      <string>Inner_diametr</string>
+      <string>inner_diametr</string>
      </property>
     </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QLineEdit" name="lineEdit_3"/>
    </item>
    <item row="8" column="0">
     <widget class="QLabel" name="label_2">
@@ -71,35 +69,15 @@
      </property>
     </widget>
    </item>
-   <item row="10" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>produser_name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="1">
-    <widget class="QLineEdit" name="lineEdit"/>
-   </item>
-   <item row="11" column="0">
-    <widget class="QLabel" name="label_8">
-     <property name="text">
-      <string>exist produser</string>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="1">
-    <widget class="QComboBox" name="comboBox"/>
-   </item>
    <item row="13" column="0">
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="pushButton_CLEAN">
      <property name="text">
-      <string>Clean</string>
+      <string>CLEAN</string>
      </property>
     </widget>
    </item>
    <item row="13" column="1">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="pushButton_INPUT">
      <property name="text">
       <string>INPUT</string>
      </property>
@@ -111,23 +89,50 @@
    <item row="8" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>OpenFile</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QLineEdit" name="lineEdit_2">
        <property name="text">
-        <string>double CLICK</string>
+        <string/>
        </property>
        <property name="readOnly">
         <bool>false</bool>
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>OpenFile</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+   </item>
+   <item row="10" column="1">
+    <widget class="QComboBox" name="comboBox">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>produser_name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QSpinBox" name="spinBox_outer_diametr"/>
+   </item>
+   <item row="6" column="1">
+    <widget class="QSpinBox" name="spinBox_inner_diametr"/>
+   </item>
+   <item row="12" column="1">
+    <widget class="QLabel" name="label_input_info">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

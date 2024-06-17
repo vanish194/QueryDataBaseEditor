@@ -22,6 +22,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this,SIGNAL(send_data_base_connection(DataBaseAction*)),
             tool_add_window,SLOT(receive_data_base_action(DataBaseAction*)));
+    connect(this,SIGNAL(send_data_base_connection(DataBaseAction*)),
+            sensor_add_window,SLOT(receive_data_base_action(DataBaseAction*)));
+    connect(this,SIGNAL(send_data_base_connection(DataBaseAction*)),
+            additional_mnemonic_add_window,SLOT(receive_data_base_action(DataBaseAction*)));
+    connect(this,SIGNAL(send_data_base_connection(DataBaseAction*)),
+            main_mnemonic_add_window,SLOT(receive_data_base_action(DataBaseAction*)));
 }
 
 MainWindow::~MainWindow()
