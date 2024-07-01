@@ -36,9 +36,13 @@ private:
     void input_sensor_description();
 public slots:
     void receive_data_base_action(DataBaseAction *data_base_action2);
+    void refreshed_bd_slot();
 private slots:
     void on_pushButton_INPUT_clicked();
     void on_pushButton_CLEAN_clicked();
+    void on_SensorAddWindow_finished();
+signals:
+    void refreshing_bd();
 };
 
 #endif // SENSORADDWINDOW_H

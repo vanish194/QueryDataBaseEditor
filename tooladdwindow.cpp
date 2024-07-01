@@ -9,6 +9,8 @@ ToolAddWindow::ToolAddWindow(QWidget *parent)
     ui->setupUi(this);
     ui->spinBox_outer_diametr->setMaximum(500);
     ui->spinBox_inner_diametr->setMaximum(500);
+    ui->spinBox_inner_diametr->setSuffix("mm");
+    ui->spinBox_outer_diametr->setSuffix("mm");
 }
 
 ToolAddWindow::~ToolAddWindow()
@@ -19,9 +21,13 @@ ToolAddWindow::~ToolAddWindow()
 
 void ToolAddWindow::on_pushButton_INPUT_clicked()
 {
+    input_produser();
+    input_tool_description();
     input_tool();
     ui->label_input_info->setText("Tool Added");
     ui->label_input_info->setStyleSheet("color: green");
+    data_base_action->database_refresh();
+    emit refreshing_bd();
 }
 
 
@@ -41,6 +47,19 @@ void ToolAddWindow::receive_data_base_action(DataBaseAction *data_base_action2)
 {
     data_base_action=data_base_action2;
     qDebug()<<"slot2";
+    list_produsers.clear();
+    ui->comboBox->clear();
+    list_produsers= data_base_action->get_unique_values("produser_name","produsers");
+    foreach (const QString &value, list_produsers) {
+        ui->comboBox->addItem(value);
+    }
+}
+
+void ToolAddWindow::refreshed_bd_slot()
+{
+    qDebug()<<"slotBDref";
+    list_produsers.clear();
+    ui->comboBox->clear();
     list_produsers= data_base_action->get_unique_values("produser_name","produsers");
     foreach (const QString &value, list_produsers) {
         ui->comboBox->addItem(value);
@@ -51,8 +70,7 @@ void ToolAddWindow::receive_data_base_action(DataBaseAction *data_base_action2)
 
 void ToolAddWindow::input_tool()
 {
-    input_produser();
-    input_tool_description();
+
     tool_name=ui->lineEdit_tool_name->text();
     tool_id=data_base_action->id_minimal_for_input("tool_id","tools");
     data_base_action->insert_tools(tool_id,tool_name,tool_description_id);
@@ -64,18 +82,22 @@ void ToolAddWindow::input_produser()
 {
     produser_name=ui->comboBox->currentText();
     // логика поиска существующих
+    qDebug()<<"preinput produser";
     if(ui->comboBox->findText(produser_name)==-1)  {
+        qDebug()<<"prodeser_name not exist";
         produser_id=data_base_action->id_minimal_for_input("produser_id","produsers");
         data_base_action->insert_produsers(produser_id,produser_name);
-        qDebug()<<"prodeser_name not exist";
+
     }
     else    {
+        qDebug()<<"prodeser_name exist";
         QString condition="produser_name =\""+produser_name+"\"";
         produser_id=data_base_action->id_exist_data("produser_id","produsers",condition);//менять функцию
-        qDebug()<<"prodeser_name exist";
+
     }
     data_base_action->database_refresh();
     qDebug()<<"input produser";
+    data_base_action->database_refresh();
 }
 
 void ToolAddWindow::input_tool_description()
@@ -90,6 +112,7 @@ void ToolAddWindow::input_tool_description()
     data_base_action->insert_tool_descriptions(tool_description_id,description,lenght,outer_diametr,inner_diametr,image,produser_id);
     data_base_action->database_refresh();
     qDebug()<<"input tool_description";
+    data_base_action->database_refresh();
 }
 
 
@@ -132,5 +155,11 @@ void ToolAddWindow::on_spinBox_inner_diametr_valueChanged(int arg1)
     {
         ui->spinBox_outer_diametr->setValue(arg1);
     }
+}
+
+
+void ToolAddWindow::on_ToolAddWindow_finished()
+{
+    emit refreshing_bd();
 }
 

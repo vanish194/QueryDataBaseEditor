@@ -6,7 +6,8 @@ SensorAddWindow::SensorAddWindow(QWidget *parent)
     , ui(new Ui::SensorAddWindow)
 {
     ui->setupUi(this);
-    ui->doubleSpinBox_offset->setMaximum(200.0);
+    ui->doubleSpinBox_offset->setMaximum(50.0);
+    ui->doubleSpinBox_offset->setSuffix("m");
 }
 
 SensorAddWindow::~SensorAddWindow()
@@ -19,7 +20,7 @@ void SensorAddWindow::input_sensor()
     input_method();
     input_sensor_description();
     sensor_name=ui->lineEdit_sensor_name->text();
-
+    tool_name=ui->comboBox_tool_name->currentText();
     //поиск существующего id
     QString condition=" tool_name =\""+tool_name+"\"";
     tool_id=data_base_action->id_exist_data("tool_id","tools",condition);
@@ -61,10 +62,32 @@ void SensorAddWindow::receive_data_base_action(DataBaseAction *data_base_action2
 {
     data_base_action=data_base_action2;
     qDebug()<<"slot2";
+    list_method_name.clear();
+    ui->comboBox_method_name->clear();
     list_method_name= data_base_action->get_unique_values("method_name","methods");
     foreach (const QString &value, list_method_name) {
         ui->comboBox_method_name->addItem(value);
     }
+    list_tool_name.clear();
+    ui->comboBox_tool_name->clear();
+    list_tool_name= data_base_action->get_unique_values("tool_name","tools");
+    foreach (const QString &value, list_tool_name) {
+        ui->comboBox_tool_name->addItem(value);
+    }
+}
+
+
+void SensorAddWindow::refreshed_bd_slot()
+{
+    qDebug()<<"slotREFsens";
+    list_method_name.clear();
+    ui->comboBox_method_name->clear();
+    list_method_name= data_base_action->get_unique_values("method_name","methods");
+    foreach (const QString &value, list_method_name) {
+        ui->comboBox_method_name->addItem(value);
+    }
+    list_tool_name.clear();
+    ui->comboBox_tool_name->clear();
     list_tool_name= data_base_action->get_unique_values("tool_name","tools");
     foreach (const QString &value, list_tool_name) {
         ui->comboBox_tool_name->addItem(value);
@@ -77,6 +100,7 @@ void SensorAddWindow::on_pushButton_INPUT_clicked()
     input_sensor();
     ui->label_input_info->setText("Sensor Added");
     ui->label_input_info->setStyleSheet("color: green");
+    emit refreshing_bd();
 }
 
 
@@ -87,5 +111,12 @@ void SensorAddWindow::on_pushButton_CLEAN_clicked()
     ui->doubleSpinBox_offset->setValue(0.0);
     ui->comboBox_method_name->setCurrentText("");
     ui->label_input_info->setText("");
+}
+
+
+void SensorAddWindow::on_SensorAddWindow_finished()
+{
+    emit refreshing_bd();
+    qDebug()<<"refbdsignal";
 }
 

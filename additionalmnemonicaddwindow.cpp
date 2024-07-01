@@ -16,12 +16,16 @@ AdditionalMnemonicAddWindow::~AdditionalMnemonicAddWindow()
 
 void AdditionalMnemonicAddWindow::input_conversion_formula()
 {
-    conversion_formula=ui->lineEdit_coversion_formula->text();
-    conversion_formula_id=data_base_action->id_minimal_for_input("conversion_formula_id","conversion_formulas");
-    qDebug()<<conversion_formula_id;
-    qDebug()<<conversion_formula;
-    data_base_action->insert_conversion_formulas(conversion_formula_id,conversion_formula);
-    data_base_action->database_refresh();
+    formula=ui->lineEdit_coversion_formula->text();
+    QString condition = "inital_unit id = \""+QString::number(inital_unit_id)+ "\" AND\
+                        derived_unit_id = \""+QString::number(derived_unit_id)+"\" AND\
+          formula = \""+formula+"\"";
+    formula_id=data_base_action->id_exist_data("formula_id","conversion_formulas",condition);
+    if (formula_id==-1)
+    {
+        formula_id=data_base_action->id_minimal_for_input("formula_id","conversion_formulas");
+        data_base_action->insert_conversion_formulas(formula_id,formula,inital_unit_id,derived_unit_id);
+    }
 }
 
 void AdditionalMnemonicAddWindow::input_company()
@@ -43,29 +47,64 @@ void AdditionalMnemonicAddWindow::input_company()
 
 void AdditionalMnemonicAddWindow::input_additional_mnemonic()
 {
-    input_company();//company_id
+    main_mnemonic_name=ui->comboBox_main_mnemonic_name->currentText();
+    QString condition="main_mnemonic_name =\""+main_mnemonic_name+"\"";
+    main_mnemonic_id=data_base_action->id_exist_data("main_mnemonic_id","main_mnemonics",condition);
     additional_mnemonic_name=ui->lineEdit_addidional_mnemonic_name->text();
     additional_mnemonic_id=data_base_action->id_minimal_for_input("additional_mnemonic_id","additional_mnemonics");
-    main_mnemonic_name=ui->comboBox_main_mnemonic_name->currentText();
-    QString condition=" main_mnemonic_name =\""+main_mnemonic_name+"\"";
-    main_mnemonic_id=data_base_action->id_exist_data("main_mnemonic_id","main_mnemonics",condition);
-    qDebug()<<"main_mnemonic id found";
+    data_base_action->insert_additional_mnemonics(additional_mnemonic_id,additional_mnemonic_name,company_id,main_mnemonic_id,derived_unit_id);
     data_base_action->database_refresh();
 }
 
 void AdditionalMnemonicAddWindow::input_additional_mnemonic_unit()
 {
-    input_conversion_formula();
-    input_additional_mnemonic();
-    additional_mnemonic_unit_name=ui->lineEdit_additional_mnemonic_unit_name->text();
-    additional_mnemonic_unit_id=data_base_action->id_minimal_for_input("additional_mnemonic_unit_id","additional_mnemonic_units");
-    data_base_action->insert_additional_mnemonic_units(additional_mnemonic_unit_id,additional_mnemonic_unit_name,additional_mnemonic_id,conversion_formula_id);
+    derived_unit_name=ui->comboBox_derived_unit->currentText();
+    if(ui->comboBox_derived_unit->findText(derived_unit_name)==-1)  {
+        derived_unit_id=data_base_action->id_minimal_for_input("unit_id","units");
+        data_base_action->insert_units(derived_unit_id,derived_unit_name,type_id);
+        qDebug()<<"derived_unit not exist";
+    }
+    else    {
+        QString condition="unit_name =\""+derived_unit_name+"\"";
+        derived_unit_id=data_base_action->id_exist_data("unit_id","units",condition);
+        qDebug()<<"derived_unit exist";
+    }
     data_base_action->database_refresh();
+}
+
+bool AdditionalMnemonicAddWindow::check_formula()
+{
+    QString condition="unit_name =\""+ui->comboBox_derived_unit->currentText()+"\"";
+    derived_unit_id=data_base_action->id_exist_data("unit_id","units",condition);
+    condition="unit_name =\""+inital_unit_name+"\"";
+    inital_unit_id=data_base_action->id_exist_data("unit_id","units",condition);
+    condition = "inital_unit_id = \""+QString::number(inital_unit_id)+ "\" AND\
+                        derived_unit_id = \""+QString::number(derived_unit_id)+"\"";
+    formula_id=data_base_action->id_exist_data("formula_id","conversion_formulas",condition);
+    qDebug()<<QString::number(inital_unit_id);
+    qDebug()<<QString::number(derived_unit_id);
+
+        if (formula_id!=-1){
+        condition= "formula_id =\""+QString::number(formula_id)+"\"";
+        formula=data_base_action->find_with_condition("formula","conversion_formulas",condition);
+        ui->lineEdit_coversion_formula->setText(formula);
+        qDebug()<<"Formula exist";
+        return true;
+        }
+
+    qDebug()<<"Formula not exist";
+
+    return false;
 }
 void AdditionalMnemonicAddWindow::receive_data_base_action(DataBaseAction *data_base_action2)
 {
     data_base_action=data_base_action2;
-    qDebug()<<"slot2";
+    list_company_name.clear();
+    ui->comboBox_company_name->clear();
+    list_derived_unit.clear();
+    ui->comboBox_derived_unit->clear();
+    list_main_mnemonic_name.clear();
+    ui->comboBox_main_mnemonic_name->clear();
     list_company_name= data_base_action->get_unique_values("company_name","companies");
     foreach (const QString &value, list_company_name) {
         ui->comboBox_company_name->addItem(value);
@@ -74,21 +113,101 @@ void AdditionalMnemonicAddWindow::receive_data_base_action(DataBaseAction *data_
     foreach (const QString &value, list_main_mnemonic_name) {
         ui->comboBox_main_mnemonic_name->addItem(value);
     }
+}
 
+void AdditionalMnemonicAddWindow::refreshed_bd_slot()
+{
+    qDebug()<<"slotReffAm";
+    list_company_name.clear();
+    ui->comboBox_company_name->clear();
+    list_derived_unit.clear();
+    ui->comboBox_derived_unit->clear();
+    list_main_mnemonic_name.clear();
+    ui->comboBox_main_mnemonic_name->clear();
+    list_company_name= data_base_action->get_unique_values("company_name","companies");
+    foreach (const QString &value, list_company_name) {
+        ui->comboBox_company_name->addItem(value);
+    }
+    list_main_mnemonic_name= data_base_action->get_unique_values("main_mnemonic_name","main_mnemonics");
+    foreach (const QString &value, list_main_mnemonic_name) {
+        ui->comboBox_main_mnemonic_name->addItem(value);
+    }
 }
 
 void AdditionalMnemonicAddWindow::on_pushButton_INPUT_clicked()
 {
+    input_company();
     input_additional_mnemonic_unit();
+    input_conversion_formula();
+    input_additional_mnemonic();
+
     ui->label_input_info->setText("additional mnemonic Added");
     ui->label_input_info->setStyleSheet("color: green");
+    data_base_action->database_refresh();
+    emit refreshing_bd();
 }
 
 
 void AdditionalMnemonicAddWindow::on_pushButton_CLEAN_clicked()
 {
-    ui->lineEdit_addidional_mnemonic_name->setText("");
-    ui->lineEdit_additional_mnemonic_unit_name->setText("");
-    ui->label_input_info->setText("");
+}
+
+
+void AdditionalMnemonicAddWindow::on_comboBox_main_mnemonic_name_currentTextChanged(const QString &arg1)
+{
+    QString condition="main_mnemonic_name =\""+arg1+"\"";
+    inital_unit_id=data_base_action->id_exist_data("unit_id","main_mnemonics",condition);
+
+    condition="unit_id =\""+QString::number(inital_unit_id)+"\"";
+    inital_unit_name=data_base_action->find_with_condition("unit_name","units",condition);
+
+    condition="unit_id =\""+QString::number(inital_unit_id)+"\"";
+    type_id=data_base_action->id_exist_data("type_id","units",condition);
+
+    condition="type_id =\""+QString::number(type_id)+"\"";
+    type_name=data_base_action->find_with_condition("type_name","types_of_units",condition);
+
+    ui->lineEdit_unit_info->setText(type_name+" / "+inital_unit_name);
+
+    condition="type_id =\""+QString::number(type_id)+"\"";
+    list_derived_unit.clear();
+    ui->comboBox_derived_unit->clear();
+    list_derived_unit=data_base_action->get_unique_values_with_condition("unit_name","units",condition);
+    foreach (const QString &value, list_derived_unit) {
+        ui->comboBox_derived_unit->addItem(value);
+    }
+}
+
+
+void AdditionalMnemonicAddWindow::on_lineEdit_unit_info_textChanged()
+{
+    if(check_formula())
+    {
+        ui->lineEdit_coversion_formula->setReadOnly(true);
+        ui->lineEdit_coversion_formula->setStyleSheet("background-color: lightgray");
+    }else{
+        ui->lineEdit_coversion_formula->setReadOnly(false);
+        ui->lineEdit_coversion_formula->setStyleSheet("background-color: white");
+    }
+
+}
+
+
+void AdditionalMnemonicAddWindow::on_comboBox_derived_unit_currentTextChanged()
+{
+    if(check_formula())
+    {
+        ui->lineEdit_coversion_formula->setReadOnly(true);
+        ui->lineEdit_coversion_formula->setStyleSheet("background-color: lightgray");
+    }else{
+        ui->lineEdit_coversion_formula->setReadOnly(false);
+        ui->lineEdit_coversion_formula->setStyleSheet("background-color: white");
+    }
+}
+
+
+void AdditionalMnemonicAddWindow::on_AdditionalMnemonicAddWindow_finished()
+{
+    emit refreshing_bd();
 }
 

@@ -17,9 +17,71 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>main_mnemonic_name</string>
+      <string>main_mnemonic</string>
      </property>
     </widget>
+   </item>
+   <item row="14" column="1">
+    <widget class="QLabel" name="label_input_info">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="1">
+    <widget class="QPushButton" name="pushButton_INPUT">
+     <property name="text">
+      <string>INPUT</string>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="0">
+    <widget class="QPushButton" name="pushButton_CLEAN">
+     <property name="text">
+      <string>CLEAN</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>company_name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="comboBox_company_name">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>addidional_mnemonic</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="lineEdit_addidional_mnemonic_name"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>unit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>coversion_formula</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QLineEdit" name="lineEdit_coversion_formula"/>
    </item>
    <item row="0" column="1">
     <widget class="QComboBox" name="comboBox_main_mnemonic_name">
@@ -28,68 +90,27 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>addidional_mnemonic_name</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="lineEdit_addidional_mnemonic_name"/>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>additional_mnemonic_unit_name</string>
+    <widget class="QLineEdit" name="lineEdit_unit_info">
+     <property name="enabled">
+      <bool>true</bool>
      </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEdit_additional_mnemonic_unit_name"/>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>coversion_formula</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLineEdit" name="lineEdit_coversion_formula"/>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>company_name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QComboBox" name="comboBox_company_name">
-     <property name="editable">
+     <property name="readOnly">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
-    <widget class="QLabel" name="label_input_info">
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string/>
+      <string>main type unit/unit</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
-    <widget class="QPushButton" name="pushButton_INPUT">
-     <property name="text">
-      <string>INPUT</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QPushButton" name="pushButton_CLEAN">
-     <property name="text">
-      <string>CLEAN</string>
+   <item row="4" column="1">
+    <widget class="QComboBox" name="comboBox_derived_unit">
+     <property name="editable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

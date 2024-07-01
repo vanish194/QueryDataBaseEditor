@@ -28,6 +28,8 @@ private slots:
 
     void on_spinBox_inner_diametr_valueChanged(int arg1);
 
+    void on_ToolAddWindow_finished();
+
 private:
     Ui::ToolAddWindow *ui;
     QString tool_name;
@@ -49,6 +51,9 @@ private:
 
 public slots:
     void receive_data_base_action(DataBaseAction *data_base_action2);
+    void refreshed_bd_slot();
+signals:
+    void refreshing_bd();
 };
 
 #endif // TOOLADDWINDOW_H

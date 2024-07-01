@@ -14,74 +14,82 @@
    <string>Main Mnemonic Add Window</string>
   </property>
   <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>main_mnemonic_name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="lineEdit_main_mnemonic_name"/>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>main_mnemonic_description</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QLineEdit" name="lineEdit_main_mnemonic_description"/>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>main_mnemonic_unit_name</string>
+      <string>main_mnemonic</string>
      </property>
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEdit_main_mnemonic_unit_name"/>
+    <widget class="QLineEdit" name="lineEdit_main_mnemonic_name"/>
    </item>
    <item row="3" column="0">
-    <widget class="QLabel" name="label_main_mnemonic_description">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>main_mnemonic_unit_description</string>
+      <string>decription</string>
      </property>
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QLineEdit" name="lineEdit_main_mnemonic_unit_description"/>
+    <widget class="QLineEdit" name="lineEdit_main_mnemonic_description"/>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_5">
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>sensor_name</string>
+      <string>type_of_unit</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QComboBox" name="comboBox_sensor_name"/>
-   </item>
    <item row="6" column="0">
+    <widget class="QLabel" name="label_main_mnemonic_description">
+     <property name="text">
+      <string>unit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0">
     <widget class="QPushButton" name="pushButton_CLEAN">
      <property name="text">
       <string>CLEAN</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
+   <item row="9" column="1">
     <widget class="QPushButton" name="pushButton_INPUT">
      <property name="text">
       <string>INPUT</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
+   <item row="8" column="1">
     <widget class="QLabel" name="label_input_info">
      <property name="text">
       <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="comboBox_sensor_name"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>sensor_name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QComboBox" name="comboBox_type_of_unit">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QComboBox" name="comboBox_unit">
+     <property name="editable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

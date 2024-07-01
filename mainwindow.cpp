@@ -28,6 +28,23 @@ MainWindow::MainWindow(QWidget *parent)
             additional_mnemonic_add_window,SLOT(receive_data_base_action(DataBaseAction*)));
     connect(this,SIGNAL(send_data_base_connection(DataBaseAction*)),
             main_mnemonic_add_window,SLOT(receive_data_base_action(DataBaseAction*)));
+
+    connect(tool_add_window,SIGNAL(refreshing_bd()),tool_add_window,SLOT(refreshed_bd_slot()));
+    connect(tool_add_window,SIGNAL(refreshing_bd()),sensor_add_window,SLOT(refreshed_bd_slot()));
+    connect(tool_add_window,SIGNAL(refreshing_bd()),main_mnemonic_add_window,SLOT(refreshed_bd_slot()));
+    connect(tool_add_window,SIGNAL(refreshing_bd()),additional_mnemonic_add_window,SLOT(refreshed_bd_slot()));
+    connect(sensor_add_window,SIGNAL(refreshing_bd()),tool_add_window,SLOT(refreshed_bd_slot()));
+    connect(sensor_add_window,SIGNAL(refreshing_bd()),sensor_add_window,SLOT(refreshed_bd_slot()));
+    connect(sensor_add_window,SIGNAL(refreshing_bd()),main_mnemonic_add_window,SLOT(refreshed_bd_slot()));
+    connect(sensor_add_window,SIGNAL(refreshing_bd()),additional_mnemonic_add_window,SLOT(refreshed_bd_slot()));
+    connect(main_mnemonic_add_window,SIGNAL(refreshing_bd()),tool_add_window,SLOT(refreshed_bd_slot()));
+    connect(main_mnemonic_add_window,SIGNAL(refreshing_bd()),sensor_add_window,SLOT(refreshed_bd_slot()));
+    connect(main_mnemonic_add_window,SIGNAL(refreshing_bd()),main_mnemonic_add_window,SLOT(refreshed_bd_slot()));
+    connect(main_mnemonic_add_window,SIGNAL(refreshing_bd()),additional_mnemonic_add_window,SLOT(refreshed_bd_slot()));
+    connect(additional_mnemonic_add_window,SIGNAL(refreshing_bd()),tool_add_window,SLOT(refreshed_bd_slot()));
+    connect(additional_mnemonic_add_window,SIGNAL(refreshing_bd()),sensor_add_window,SLOT(refreshed_bd_slot()));
+    connect(additional_mnemonic_add_window,SIGNAL(refreshing_bd()),main_mnemonic_add_window,SLOT(refreshed_bd_slot()));
+    connect(additional_mnemonic_add_window,SIGNAL(refreshing_bd()),additional_mnemonic_add_window,SLOT(refreshed_bd_slot()));
 }
 
 MainWindow::~MainWindow()
@@ -45,6 +62,7 @@ void MainWindow::on_actionOpen_Database_triggered()
     QString fileName=QFileDialog::getOpenFileName(this,"Choose file",QDir::homePath(),"");
     data_base_action.database_connecting(fileName);
     ui->tableView->setModel(data_base_action.model1);
+    ui->treeView->setModel(data_base_action.model1);
     BlobImageDelegate* blobDelegate=new BlobImageDelegate;
     blobDelegate->column_index=blobDelegate->column_fiend_index(ui->tableView,"image");//выбрать столбец с изображением если надо несколько, то переделать в массив и в blobimagedelegate
     ui->tableView->setItemDelegate(blobDelegate);
