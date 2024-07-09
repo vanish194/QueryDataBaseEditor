@@ -14,38 +14,40 @@ public:
     CustomTreeView(QWidget *parent = nullptr) : QTreeView(parent)
     {
         setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
+        connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(show_context_menu(const QPoint&)));
     }
 
+private:
+    void set_heasers();
 private slots:
-    void showContextMenu(const QPoint &pos)
+    void show_context_menu(const QPoint &pos)
     {
-        QMenu contextMenu(tr("Context Menu"), this);
+        QMenu context_menu(tr("Context Menu"), this);
 
-        QAction *addAction = contextMenu.addAction("Add");
-        QAction *editAction = contextMenu.addAction("Edit");
-        QAction *removeAction = contextMenu.addAction("Remove");
+        QAction *add_action = context_menu.addAction("Add");
+        QAction *edit_action = context_menu.addAction("Edit");
+        QAction *remove_action = context_menu.addAction("Remove");
 
-        connect(addAction, SIGNAL(triggered()), this, SLOT(onAdd()));
-        connect(editAction, SIGNAL(triggered()), this, SLOT(onEdit()));
-        connect(removeAction, SIGNAL(triggered()), this, SLOT(onRemove()));
+        connect(add_action, SIGNAL(triggered()), this, SLOT(on_add()));
+        connect(edit_action, SIGNAL(triggered()), this, SLOT(on_edit()));
+        connect(remove_action, SIGNAL(triggered()), this, SLOT(on_remove()));
 
-        contextMenu.exec(mapToGlobal(pos));
+        context_menu.exec(mapToGlobal(pos));
     }
 
-    void onAdd()
+    void on_add()
     {
         // Действия при выборе "Add"
         qDebug() << "Add clicked";
     }
 
-    void onEdit()
+    void on_edit()
     {
         // Действия при выборе "Edit"
         qDebug() << "Edit clicked";
     }
 
-    void onRemove()
+    void on_remove()
     {
         // Действия при выборе "Remove"
         qDebug() << "Remove clicked";
