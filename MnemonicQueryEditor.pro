@@ -26,6 +26,7 @@ HEADERS += \
     blobimagedelegate.h \
     customquerymodel.h \
     customtableview.h \
+    customtreeview.h \
     databaseaction.h \
     mainmnemonicaddwindow.h \
     mainwindow.h \

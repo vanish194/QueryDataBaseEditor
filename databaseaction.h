@@ -9,14 +9,23 @@
 #include <QString>
 #include <QVariantList>
 #include <QByteArray>
+#include <QStandardItemModel>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QSqlDatabase>
+#include <QSqlRecord>
+
 class DataBaseAction
 {
 
 public:
     CustomQueryModel *model1;
     QSqlDatabase database;
+    QStandardItemModel *treemodel;
+
 
     void database_connecting(const QString& fileName);
+    void tree_model_create();
 
     void insert_types_of_units(const int& id, const QString& type_name);
   //  void insert_additional_mnemonic_units(const int& id,const QString& name,const int& additional_mnemonic_id,const int& conversion_formula_id);

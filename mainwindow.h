@@ -11,6 +11,7 @@
 #include "databaseaction.h"
 #include "blobimagedelegate.h"
 #include "adding.h"
+#include "customtableview.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -34,6 +35,8 @@ private slots:
 
     void on_pushButton_cancel_clicked();
     void on_pushButton_add_clicked();
+    void on_treeView_doubleClicked(const QModelIndex &index);
+
 signals:
     void send_data_base_connection(DataBaseAction* data_base_action);
     void send_window1(QWidget *window);
@@ -50,5 +53,6 @@ private:
     MainMnemonicAddWindow* main_mnemonic_add_window;
     ToolAddWindow* tool_add_window;
     SensorAddWindow*sensor_add_window;
+    void connecting();
 };
 #endif // MAINWINDOW_H

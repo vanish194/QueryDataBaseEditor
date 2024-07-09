@@ -3,10 +3,13 @@
 DataBaseAction::DataBaseAction()
 {
     this->model1=new CustomQueryModel;
+    this->treemodel=new QStandardItemModel;
 
 }
 DataBaseAction::~DataBaseAction()
 {
+    delete model1;
+    delete treemodel;
     if(true) DataBaseAction::database_commit();
     else DataBaseAction::database_rollback();
     database.close();
@@ -18,7 +21,64 @@ void DataBaseAction::database_connecting(const QString& fileName)
     database.open();
     database_refresh();
 
+
     //QSqlDatabase::database().transaction();
+}
+
+void DataBaseAction::tree_model_create()
+{
+    treemodel->clear();
+    QSqlQuery query;
+    query.prepare(QStringLiteral("SELECT\
+                  tools.tool_name,\
+                  sensors.sensor_name,\
+                  main_mnemonics.main_mnemonic_name,\
+                  additional_mnemonics.additional_mnemonic_name\
+                  FROM\
+                  sensors\
+                  FULL JOIN tools ON (sensors.tool_id = tools.tool_id)\
+                  FULL  JOIN main_mnemonics ON (sensors.sensor_id = main_mnemonics.sensor_id)\
+                  FULL  JOIN additional_mnemonics ON (main_mnemonics.main_mnemonic_id = additional_mnemonics.main_mnemonic_id)"));
+    if (!query.exec()) {
+        qDebug() << "Ошибка выполнения запроса treemodel create:" << query.lastError().text();
+
+    }
+
+    // QMap для хранения иерархии данных
+    QMap<QString, QMap<QString, QMap<QString, QStringList>>> data_hierarchy;
+
+    // Создание структуры иерархии на основе результата запроса
+    while (query.next()) {
+        QString tool_name = query.value(0).toString();
+        QString sensor_name = query.value(1).toString();
+        QString main_mnemonic_name = query.value(2).toString();
+        QString additional_mnemonic_name = query.value(3).toString();
+
+        // Добавление данных в QMap
+        data_hierarchy[tool_name][sensor_name][main_mnemonic_name].append(additional_mnemonic_name);
+    }
+
+    // Добавление элементов в модель данных на основе данных иерархии
+    for (auto tool_iter = data_hierarchy.begin(); tool_iter != data_hierarchy.end(); ++tool_iter) {
+        QStandardItem *tool_item = new QStandardItem(tool_iter.key());
+        treemodel->appendRow(tool_item);
+
+        for (auto sensor_iter = tool_iter.value().begin(); sensor_iter != tool_iter.value().end(); ++sensor_iter) {
+            QStandardItem *sensor_item = new QStandardItem(sensor_iter.key());
+            tool_item->appendRow(sensor_item);
+
+            for (auto main_iter = sensor_iter.value().begin(); main_iter != sensor_iter.value().end(); ++main_iter) {
+                QStandardItem *main_item = new QStandardItem(main_iter.key());
+                sensor_item->appendRow(main_item);
+
+                for (const QString &additional : main_iter.value()) {
+                    QStandardItem *additional_item = new QStandardItem(additional);
+                    main_item->appendRow(additional_item);
+                }
+            }
+        }
+    }
+
 }
 
 void DataBaseAction::insert_types_of_units(const int &type_id, const QString &type_name)
@@ -388,6 +448,7 @@ FROM\
   FULL OUTER JOIN sensor_descriptions ON (sensors.sensor_description_id = sensor_descriptions.sensor_description_id)\
 \
 "));
+    tree_model_create();
 }
 
 void DataBaseAction::database_upload()
