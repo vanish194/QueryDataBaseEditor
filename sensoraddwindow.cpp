@@ -100,6 +100,7 @@ void SensorAddWindow::on_pushButton_INPUT_clicked()
     input_sensor();
     ui->label_input_info->setText("Sensor Added");
     ui->label_input_info->setStyleSheet("color: green");
+    data_base_action->database_refresh();
     emit refreshing_bd();
 }
 
@@ -116,7 +117,11 @@ void SensorAddWindow::on_pushButton_CLEAN_clicked()
 
 void SensorAddWindow::on_SensorAddWindow_finished()
 {
+    ui->lineEdit_sensor_description->setText("");
+    ui->lineEdit_sensor_name->setText("");
+    ui->doubleSpinBox_offset->setValue(0.0);
+    ui->comboBox_method_name->setCurrentText("");
+    ui->label_input_info->setText("");
     emit refreshing_bd();
-    qDebug()<<"refbdsignal";
 }
 

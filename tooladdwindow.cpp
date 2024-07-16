@@ -7,10 +7,10 @@ ToolAddWindow::ToolAddWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
-    ui->spinBox_outer_diametr->setMaximum(500);
-    ui->spinBox_inner_diametr->setMaximum(500);
-    ui->spinBox_inner_diametr->setSuffix("mm");
-    ui->spinBox_outer_diametr->setSuffix("mm");
+    ui->spinBox_outer_diameter->setMaximum(500);
+    ui->spinBox_inner_diameter->setMaximum(500);
+    ui->spinBox_inner_diameter->setSuffix("mm");
+    ui->spinBox_outer_diameter->setSuffix("mm");
 }
 
 ToolAddWindow::~ToolAddWindow()
@@ -34,8 +34,8 @@ void ToolAddWindow::on_pushButton_INPUT_clicked()
 void ToolAddWindow::on_pushButton_CLEAN_clicked()
 {
     ui->lineEdit_2->setText("");
-    ui->spinBox_outer_diametr->setValue(0);
-    ui->spinBox_inner_diametr->setValue(0);
+    ui->spinBox_outer_diameter->setValue(0);
+    ui->spinBox_inner_diameter->setValue(0);
     ui->lineEdit_legth->setText("");
     ui->lineEdit_description->setText("");
     ui->lineEdit_tool_name->setText("");
@@ -92,7 +92,7 @@ void ToolAddWindow::input_produser()
     else    {
         qDebug()<<"prodeser_name exist";
         QString condition="produser_name =\""+produser_name+"\"";
-        produser_id=data_base_action->id_exist_data("produser_id","produsers",condition);//менять функцию
+        produser_id=data_base_action->id_exist_data("produser_id","produsers",condition);
 
     }
     data_base_action->database_refresh();
@@ -104,12 +104,12 @@ void ToolAddWindow::input_tool_description()
 {
     tool_description_id=data_base_action->id_minimal_for_input("tool_description_id","tool_descriptions");
     description=ui->lineEdit_description->text();
-    lenght=ui->lineEdit_legth->text();
-    outer_diametr=ui->spinBox_outer_diametr->text();
-    inner_diametr=ui->spinBox_inner_diametr->text();
+    length=ui->lineEdit_legth->text();
+    outer_diameter=ui->spinBox_outer_diameter->text();
+    inner_diameter=ui->spinBox_inner_diameter->text();
     //image присваивается в функции void ToolAddWindow::on_pushButton_3_clicked()
     //produser id в функции input_produser
-    data_base_action->insert_tool_descriptions(tool_description_id,description,lenght,outer_diametr,inner_diametr,image,produser_id);
+    data_base_action->insert_tool_descriptions(tool_description_id,description,length,outer_diameter,inner_diameter,image,produser_id);
     data_base_action->database_refresh();
     qDebug()<<"input tool_description";
     data_base_action->database_refresh();
@@ -140,20 +140,20 @@ void ToolAddWindow::on_pushButton_3_clicked()
 }
 
 
-void ToolAddWindow::on_spinBox_outer_diametr_valueChanged(int arg1)
+void ToolAddWindow::on_spinBox_outer_diameter_valueChanged(int arg1)
 {
-    if(ui->spinBox_outer_diametr->value()<ui->spinBox_inner_diametr->value())
+    if(ui->spinBox_outer_diameter->value()<ui->spinBox_inner_diameter->value())
     {
-        ui->spinBox_inner_diametr->setValue(arg1);
+        ui->spinBox_inner_diameter->setValue(arg1);
     }
 }
 
 
-void ToolAddWindow::on_spinBox_inner_diametr_valueChanged(int arg1)
+void ToolAddWindow::on_spinBox_inner_diameter_valueChanged(int arg1)
 {
-    if(ui->spinBox_outer_diametr->value()<ui->spinBox_inner_diametr->value())
+    if(ui->spinBox_outer_diameter->value()<ui->spinBox_inner_diameter->value())
     {
-        ui->spinBox_outer_diametr->setValue(arg1);
+        ui->spinBox_outer_diameter->setValue(arg1);
     }
 }
 
@@ -161,5 +161,16 @@ void ToolAddWindow::on_spinBox_inner_diametr_valueChanged(int arg1)
 void ToolAddWindow::on_ToolAddWindow_finished()
 {
     emit refreshing_bd();
+    ui->lineEdit_2->setText("");
+    ui->spinBox_outer_diameter->setValue(0);
+    ui->spinBox_inner_diameter->setValue(0);
+    ui->lineEdit_legth->setText("");
+    ui->lineEdit_description->setText("");
+    ui->lineEdit_tool_name->setText("");
+    image={};
+    ui->label_input_info->setText("");
 }
+
+
+
 

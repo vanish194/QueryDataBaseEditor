@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainMnemonicAddWindow</class>
- <widget class="QDialog" name="MainMnemonicAddWindow">
+ <class>UpdateMainMnemonic</class>
+ <widget class="QDialog" name="UpdateMainMnemonic">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>577</width>
-    <height>274</height>
+    <width>578</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Main Mnemonic Add Window</string>
+   <string>Update Additional Mnemonic</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(101, 101, 101);</string>
   </property>
   <layout class="QFormLayout" name="formLayout">
-   <item row="1" column="0">
+   <item row="9" column="1">
+    <widget class="QLabel" name="label_input_info">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="comboBox_sensor_name">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(217, 217, 217);</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
     <widget class="QLabel" name="label_5">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(101, 101, 101);
@@ -28,102 +42,7 @@ color: rgb(255, 255, 255);</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="comboBox_sensor_name">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(217, 217, 217);</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEdit_main_mnemonic_name">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(217, 217, 217);</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(101, 101, 101);
-color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>decription</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLineEdit" name="lineEdit_main_mnemonic_description">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(217, 217, 217);
-color: rgb(0, 0, 0);</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(101, 101, 101);
-color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>type_of_unit</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_main_mnemonic_description">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(101, 101, 101);
-color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>unit</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QComboBox" name="comboBox_unit">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(217, 217, 217);
-color: rgb(0, 0, 0);</string>
-     </property>
-     <property name="editable">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="1">
-    <widget class="QLabel" name="label_input_info">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="0">
-    <widget class="QPushButton" name="pushButton_CLEAN">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(217, 217, 217);
-color: rgb(0, 0, 0);</string>
-     </property>
-     <property name="text">
-      <string>CLEAN</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="1">
-    <widget class="QPushButton" name="pushButton_INPUT">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(217, 217, 217);
-color: rgb(0, 0, 0);</string>
-     </property>
-     <property name="text">
-      <string>INPUT</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
+   <item row="1" column="0">
     <widget class="QLabel" name="label_2">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(101, 101, 101);
@@ -134,7 +53,44 @@ color: rgb(255, 255, 255);</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="lineEdit_main_mnemonic_name">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(217, 217, 217);</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(101, 101, 101);
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>decription</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="lineEdit_main_mnemonic_description">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(217, 217, 217);
+color: rgb(0, 0, 0);</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(101, 101, 101);
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>type_of_unit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
     <widget class="QComboBox" name="comboBox_type_of_unit">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(217, 217, 217);
@@ -142,6 +98,50 @@ color: rgb(0, 0, 0);</string>
      </property>
      <property name="editable">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_main_mnemonic_description">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(101, 101, 101);
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>unit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QComboBox" name="comboBox_unit">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(217, 217, 217);
+color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QPushButton" name="pushButton_CLEAN">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(217, 217, 217);
+color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>CLEAN</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <widget class="QPushButton" name="pushButton_INPUT">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(217, 217, 217);
+color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>INPUT</string>
      </property>
     </widget>
    </item>

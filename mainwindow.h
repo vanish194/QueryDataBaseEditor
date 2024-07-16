@@ -12,6 +12,15 @@
 #include "blobimagedelegate.h"
 #include "adding.h"
 #include "customtableview.h"
+#include <QTableView>
+#include <QStandardItemModel>
+#include <QTabWidget>
+#include <QVBoxLayout>
+#include <QWidget>
+#include "updatetool.h"
+#include "updatesensor.h"
+#include "updatemainmnemonic.h"
+#include "updateadditionalmnemonic.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,7 +44,7 @@ private slots:
 
     void on_pushButton_cancel_clicked();
     void on_pushButton_add_clicked();
-    void on_treeView_doubleClicked(const QModelIndex &index);
+    void recieve_tree_view_context_menu(const int&level,const int&action_code);
 
 signals:
     void send_data_base_connection(DataBaseAction* data_base_action);
@@ -43,6 +52,9 @@ signals:
     void send_window2(QWidget *window);
     void send_window3(QWidget *window);
     void send_window4(QWidget *window);
+
+    void send_data_name(QString& tool_name);
+
 private:
     Ui::MainWindow* ui;
     DataBaseAction data_base_action;
@@ -53,6 +65,12 @@ private:
     MainMnemonicAddWindow* main_mnemonic_add_window;
     ToolAddWindow* tool_add_window;
     SensorAddWindow*sensor_add_window;
+
+    UpdateToolWindow* update_tool_window;
+    UpdateSensor* update_sensor_window;
+    UpdateMainMnemonic* update_main_mnemonic_window;
+    UpdateAdditionalMnemonic* update_additional_mnemonic_window;
+
     void connecting();
 };
 #endif // MAINWINDOW_H

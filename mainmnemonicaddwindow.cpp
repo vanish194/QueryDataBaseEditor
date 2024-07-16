@@ -104,13 +104,19 @@ void MainMnemonicAddWindow::on_pushButton_INPUT_clicked()
     input_main_mnemonic();
     ui->label_input_info->setText("Main mnemonic Added");
     ui->label_input_info->setStyleSheet("color: green");
+    data_base_action->database_refresh();
     emit refreshing_bd();
 }
 
 
 void MainMnemonicAddWindow::on_pushButton_CLEAN_clicked()
 {
-
+    ui->comboBox_sensor_name->setCurrentText("");
+    ui->lineEdit_main_mnemonic_name->setText("");
+    ui->lineEdit_main_mnemonic_description->setText("");
+    ui->comboBox_type_of_unit->setCurrentText("");
+    ui->comboBox_unit->setCurrentText("");
+    ui->label_input_info->setText("");
 }
 
 
@@ -130,6 +136,13 @@ void MainMnemonicAddWindow::on_comboBox_type_of_unit_currentTextChanged(const QS
 
 void MainMnemonicAddWindow::on_MainMnemonicAddWindow_finished()
 {
+    ui->comboBox_sensor_name->setCurrentText("");
+    ui->lineEdit_main_mnemonic_name->setText("");
+    ui->lineEdit_main_mnemonic_description->setText("");
+    ui->comboBox_type_of_unit->setCurrentText("");
+    ui->comboBox_unit->setCurrentText("");
+    ui->label_input_info->setText("");
+
     emit refreshing_bd();
 }
 

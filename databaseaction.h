@@ -28,11 +28,11 @@ public:
     void tree_model_create();
 
     void insert_types_of_units(const int& id, const QString& type_name);
-  //  void insert_additional_mnemonic_units(const int& id,const QString& name,const int& additional_mnemonic_id,const int& conversion_formula_id);
+    //  void insert_additional_mnemonic_units(const int& id,const QString& name,const int& additional_mnemonic_id,const int& conversion_formula_id);
     void insert_additional_mnemonics(const int& id,const QString& name,const int& company_id,const int& main_mnemonic_id,const int& unit_id);
     void insert_companies (const int& id,const QString& name);
     void insert_conversion_formulas(const int& id,const QString& formula,const int& inital_unit_id,const int& derived_unit_id);
- //   void insert_main_mnemonic_units(const int& id,const QString& name,const QString& description,const int& main_mnemonic_id);
+    //   void insert_main_mnemonic_units(const int& id,const QString& name,const QString& description,const int& main_mnemonic_id);
     void insert_main_mnemonics(const int& id,const QString& name,const QString& description,const int& sensor_id,const int& unit_id);
     void insert_methods (const int& id,const QString& method_name);
     void insert_produsers(const int& id,const QString& name);
@@ -57,6 +57,16 @@ public:
     void remove_tool_descriptions(const int& id);
     void remove_tools(const int& id);
 
+    void update_tool(const int& tool_id,const QString& name,const int& description_id,QString& description,const QString& length,const QString& outer_diameter,
+                     const QString& inner_diameter, const QByteArray & image,const int &produser_id);
+    void update_sensor(const int& sensor_id,const QString& name,const int& tool_id,const int& method_id,const int& sensor_description_id,
+                       const QString& description,const QString& offset);
+    void update_main_mnemonic(const int& id,const QString& name,const QString& description,const int& sensor_id,const int& unit_id);
+    void update_additional_mnemonic(const int& additional_mnemonic_id,const QString& name,const int& company_id,const int& main_mnemonic_id,
+                                    const int& unit_id);
+
+
+
     void database_commit();
     void database_rollback();
     void database_transaction();
@@ -74,6 +84,7 @@ public:
 
     DataBaseAction();
     ~DataBaseAction();
+
 };
 
 #endif // DATABASEACTION_H

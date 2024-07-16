@@ -13,12 +13,17 @@ SOURCES += \
     additionalmnemonicaddwindow.cpp \
     customquerymodel.cpp \
     customtableview.cpp \
+    customtreeview.cpp \
     databaseaction.cpp \
     main.cpp \
     mainmnemonicaddwindow.cpp \
     mainwindow.cpp \
     sensoraddwindow.cpp \
-    tooladdwindow.cpp
+    tooladdwindow.cpp \
+    updateadditionalmnemonic.cpp \
+    updatemainmnemonic.cpp \
+    updatesensor.cpp \
+    updatetool.cpp
 
 HEADERS += \
     adding.h \
@@ -31,7 +36,11 @@ HEADERS += \
     mainmnemonicaddwindow.h \
     mainwindow.h \
     sensoraddwindow.h \
-    tooladdwindow.h
+    tooladdwindow.h \
+    updateadditionalmnemonic.h \
+    updatemainmnemonic.h \
+    updatesensor.h \
+    updatetool.h
 
 FORMS += \
     adding.ui \
@@ -39,7 +48,11 @@ FORMS += \
     mainmnemonicaddwindow.ui \
     mainwindow.ui \
     sensoraddwindow.ui \
-    tooladdwindow.ui
+    tooladdwindow.ui \
+    updateadditionalmnemonic.ui \
+    updatemainmnemonic.ui \
+    updatesensor.ui \
+    updatetool.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

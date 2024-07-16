@@ -19,6 +19,8 @@ void DataBaseAction::database_connecting(const QString& fileName)
     database=QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(fileName);
     database.open();
+    QSqlQuery q;
+    q.exec("PRAGMA foreign_keys = ON");
     database_refresh();
 
 
@@ -28,6 +30,7 @@ void DataBaseAction::database_connecting(const QString& fileName)
 void DataBaseAction::tree_model_create()
 {
     treemodel->clear();
+
     QSqlQuery query;
     query.prepare(QStringLiteral("SELECT\
                   tools.tool_name,\
@@ -78,6 +81,10 @@ void DataBaseAction::tree_model_create()
             }
         }
     }
+    treemodel->setHeaderData(0,Qt::Horizontal,"tools");
+    treemodel->setHeaderData(1,Qt::Horizontal,"sensors");
+    treemodel->setHeaderData(2,Qt::Horizontal,"main mnemonics");
+    treemodel->setHeaderData(3,Qt::Horizontal,"additional mnemonics");
 
 }
 
@@ -296,12 +303,12 @@ void DataBaseAction::remove_additional_mnemonic_units(const int& additional_mnem
     }
 }
 
-void DataBaseAction::remove_additional_mnemonics(const int& addtitonal_mnemonic_id)
+void DataBaseAction::remove_additional_mnemonics(const int& additional_mnemonic_id)
 {
     QSqlQuery query;
-    query.prepare(QStringLiteral("DELETE FROM addtitonal_mnemonics\
-        WHERE addtitonal_mnemonic_id=?"));
-    query.addBindValue(addtitonal_mnemonic_id);
+    query.prepare(QStringLiteral("DELETE FROM additional_mnemonics\
+        WHERE additional_mnemonic_id=?"));
+    query.addBindValue(additional_mnemonic_id);
     if(!query.exec()){
         qDebug() << "Ошибка выполнения запроса ram:" << query.lastError().text();
     }
@@ -386,6 +393,10 @@ void DataBaseAction::remove_sensor_descriptions(const int& sensor_description_id
 
 void DataBaseAction::remove_sensors(const int& sensor_id)
 {
+    int sensor_description_id=-1;
+    QString condition=" sensor_id =\""+QString::number(sensor_id)+"\"";
+    sensor_description_id=id_exist_data("sensor_description_id","sensors",condition);
+    remove_sensor_descriptions(sensor_description_id);
     QSqlQuery query;
     query.prepare(QStringLiteral("DELETE FROM sensors\
         WHERE sensor_id=?"));
@@ -408,6 +419,10 @@ void DataBaseAction::remove_tool_descriptions(const int& tool_description_id)
 
 void DataBaseAction::remove_tools(const int& tool_id)
 {
+    int tool_description_id=0;
+    QString condition=" tool_id =\""+QString::number(tool_id)+"\"";
+    tool_description_id=id_exist_data("tool_description_id","tools",condition);
+    remove_tool_descriptions(tool_description_id);
     QSqlQuery query;
     query.prepare(QStringLiteral("DELETE FROM tools\
         WHERE tool_id=?"));
@@ -416,6 +431,95 @@ void DataBaseAction::remove_tools(const int& tool_id)
         qDebug() << "Ошибка выполнения запроса rt:" << query.lastError().text();
     }
 }
+
+void DataBaseAction::update_tool(const int &tool_id, const QString &name, const int &description_id, QString &description,
+                                 const QString &length, const QString &outer_diameter, const QString &inner_diameter,
+                                 const QByteArray &image, const int &produser_id)
+{
+    QSqlQuery query;
+    query.prepare(QStringLiteral("UPDATE tools      SET tool_name =?        WHERE tool_id=?"));
+    query.addBindValue(name);
+    query.addBindValue(tool_id);
+    if(!query.exec()){
+        qDebug() << "Ошибка выполнения запроса UPDATE tools:" << query.lastError().text();
+        }
+    query.prepare(QStringLiteral("UPDATE tool_descriptions      SET description =?,length=?,outer_diameter=?,inner_diameter=?,\
+                                 image=?,produser_id=?           WHERE tool_description_id=?"));
+    query.addBindValue(description);
+    query.addBindValue(length);
+    query.addBindValue(outer_diameter);
+    query.addBindValue(inner_diameter);
+    query.addBindValue(image);
+    query.addBindValue(produser_id);
+    query.addBindValue(description_id);
+
+
+    if(!query.exec()){
+            qDebug() << "Ошибка выполнения запроса UPDATE tool_description:" << query.lastError().text();
+    }
+
+}
+
+void DataBaseAction::update_sensor(const int &sensor_id, const QString &name, const int &tool_id, const int &method_id,
+                                   const int &sensor_description_id, const QString &description, const QString &offset)
+{
+   QSqlQuery query;
+    query.prepare(QStringLiteral("UPDATE sensors      SET sensor_name =?,tool_id=?,method_id=?,sensor_description_id=?\
+                                  WHERE sensor_id=?"));
+   query.addBindValue(name);
+   query.addBindValue(tool_id);
+   query.addBindValue(method_id);
+   query.addBindValue(sensor_description_id);
+   query.addBindValue(sensor_id);
+   if(!query.exec()){
+       qDebug() << "Ошибка выполнения запроса UPDATE sensors:" << query.lastError().text();
+   }
+   query.prepare(QStringLiteral("UPDATE sensor_descriptions      SET sensor_description =?,offset=?        \
+                                 WHERE sensor_description_id=?"));
+   query.addBindValue(description);
+   query.addBindValue(offset);
+   query.addBindValue(sensor_description_id);
+   if(!query.exec()){
+       qDebug() << "Ошибка выполнения запроса UPDATE sensor_descriptions:" << query.lastError().text();
+   }
+
+}
+
+void DataBaseAction::update_main_mnemonic(const int &id, const QString &name, const QString &description, const int &sensor_id,
+                                          const int &unit_id)
+{
+   QSqlQuery query;
+    query.prepare(QStringLiteral("UPDATE main_mnemonics      SET main_mnemonic_name =?, main_mnemonic_description=?,\
+                                  sensor_id=?, unit_id=?\
+                                  WHERE main_mnemonic_id=?"));
+   query.addBindValue(name);
+   query.addBindValue(description);
+   query.addBindValue(sensor_id);
+   query.addBindValue(unit_id);
+   query.addBindValue(id);
+   if(!query.exec()){
+       qDebug() << "Ошибка выполнения запроса UPDATE main_mnemonics:" << query.lastError().text();
+   }
+}
+
+void DataBaseAction::update_additional_mnemonic(const int &additional_mnemonic_id, const QString &name, const int &company_id,
+                                                const int &main_mnemonic_id, const int &unit_id)
+{
+   QSqlQuery query;
+    query.prepare(QStringLiteral("UPDATE additional_mnemonics      SET additional_mnemonic_name =?, company_id=?,\
+                                  main_mnemonic_id=?, unit_id=?\
+                                  WHERE additional_mnemonic_id=?"));
+   query.addBindValue(name);
+   query.addBindValue(company_id);
+   query.addBindValue(main_mnemonic_id);
+   query.addBindValue(unit_id);
+   query.addBindValue(additional_mnemonic_id);
+   if(!query.exec()){
+       qDebug() << "Ошибка выполнения запроса UPDATE additional_mnemonics:" << query.lastError().text();
+   }
+}
+
+
 
 void DataBaseAction::database_commit()
 {
@@ -463,7 +567,7 @@ QString DataBaseAction::find_with_condition(const QString &column_name, const QS
     QString re_value;
     query.prepare("SELECT DISTINCT " + column_name + " FROM "+table_name+" WHERE "+condition);
     if (!query.exec()) {
-        qDebug() << "Ошибка выполнения запроса id_minimal_for_input:" << query.lastError().text();
+        qDebug() << "Ошибка выполнения запроса find_with_condition:" << query.lastError().text();
         return "-1";
     }//SELECT сам сортирует по возрастанию
     while(query.next()){
@@ -497,7 +601,7 @@ int DataBaseAction::id_exist_data( const QString& column_name, const QString& ta
     QSqlQuery query;
     query.prepare("SELECT DISTINCT " + column_name + " FROM "+table_name+" WHERE "+condition);
     if (!query.exec()) {
-        qDebug() << "Ошибка выполнения запроса id_minimal_for_input:" << query.lastError().text();
+        qDebug() << " id_exist_data not exist. return id=-1:" << query.lastError().text();
         return -1;
     }//SELECT сам сортирует по возрастанию
     while(query.next()){

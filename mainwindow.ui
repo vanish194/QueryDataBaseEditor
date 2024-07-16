@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>856</width>
+    <height>764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,26 +55,43 @@
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_selection_mode">
-          <property name="text">
-           <string>SELECTION MODE</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="CustomTreeView" name="treeView">
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
+           <widget class="QTabWidget" name="tabWidget">
+            <property name="currentIndex">
+             <number>0</number>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTableView" name="tableView">
-            <property name="sortingEnabled">
-             <bool>false</bool>
-            </property>
+            <widget class="QWidget" name="tab">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <attribute name="title">
+              <string>Tab 1</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="0">
+               <widget class="QTableView" name="tableView">
+                <property name="sortingEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_2">
+             <attribute name="title">
+              <string>Tab 2</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <widget class="CustomTreeView" name="treeView">
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -90,7 +107,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>856</width>
      <height>25</height>
     </rect>
    </property>
@@ -116,6 +133,14 @@
    <header>customtreeview.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>pushButton_save</tabstop>
+  <tabstop>pushButton_cancel</tabstop>
+  <tabstop>tableView</tabstop>
+  <tabstop>pushButton_remove</tabstop>
+  <tabstop>treeView</tabstop>
+  <tabstop>pushButton_add</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

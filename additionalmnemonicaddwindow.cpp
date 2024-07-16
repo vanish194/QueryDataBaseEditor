@@ -17,7 +17,7 @@ AdditionalMnemonicAddWindow::~AdditionalMnemonicAddWindow()
 void AdditionalMnemonicAddWindow::input_conversion_formula()
 {
     formula=ui->lineEdit_coversion_formula->text();
-    QString condition = "inital_unit id = \""+QString::number(inital_unit_id)+ "\" AND\
+    QString condition = "inital_unit_id = \""+QString::number(inital_unit_id)+ "\" AND\
                         derived_unit_id = \""+QString::number(derived_unit_id)+"\" AND\
           formula = \""+formula+"\"";
     formula_id=data_base_action->id_exist_data("formula_id","conversion_formulas",condition);
@@ -150,6 +150,11 @@ void AdditionalMnemonicAddWindow::on_pushButton_INPUT_clicked()
 
 void AdditionalMnemonicAddWindow::on_pushButton_CLEAN_clicked()
 {
+    ui->label_input_info->setText("");
+    ui->comboBox_main_mnemonic_name->setCurrentText("");
+    ui->comboBox_company_name->setCurrentText("");
+    ui->comboBox_derived_unit->setCurrentText("");
+    ui->lineEdit_coversion_formula->setText("");
 }
 
 
@@ -208,6 +213,11 @@ void AdditionalMnemonicAddWindow::on_comboBox_derived_unit_currentTextChanged()
 
 void AdditionalMnemonicAddWindow::on_AdditionalMnemonicAddWindow_finished()
 {
+    ui->label_input_info->setText("");
+    ui->comboBox_main_mnemonic_name->setCurrentText("");
+    ui->comboBox_company_name->setCurrentText("");
+    ui->comboBox_derived_unit->setCurrentText("");
+    ui->lineEdit_coversion_formula->setText("");
     emit refreshing_bd();
 }
 

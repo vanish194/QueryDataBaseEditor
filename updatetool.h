@@ -1,26 +1,28 @@
-#ifndef TOOLADDWINDOW_H
-#define TOOLADDWINDOW_H
+    #ifndef UPDATETOOL_H
+#define UPDATETOOL_H
 
 #include <QDialog>
 #include <QFileDialog>
 #include "databaseaction.h"
+
 namespace Ui {
-class ToolAddWindow;
+class UpdateToolWindow;
 }
 
-class ToolAddWindow : public QDialog
+class UpdateToolWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ToolAddWindow(QWidget *parent = nullptr);
-    ~ToolAddWindow();
+    explicit UpdateToolWindow(QWidget *parent = nullptr);
+    ~UpdateToolWindow();
+public slots:
 
+    void recieve_data_name(QString& tool_name);
+
+    void receive_data_base_action(DataBaseAction *data_base_action2);
 private slots:
 
-    void on_pushButton_CLEAN_clicked();
-
-    void on_pushButton_INPUT_clicked();
 
     void on_pushButton_3_clicked();
 
@@ -28,10 +30,14 @@ private slots:
 
     void on_spinBox_inner_diameter_valueChanged(int arg1);
 
-    void on_ToolAddWindow_finished();
+    void on_pushButton_INPUT_clicked();
+
+    void on_pushButton_CLEAN_clicked();
 
 private:
-    Ui::ToolAddWindow *ui;
+
+
+    Ui::UpdateToolWindow *ui;
     QString tool_name;
     QString description;
     QString length;
@@ -45,16 +51,16 @@ private:
     int produser_id;
     QList<QString> list_produsers;
     DataBaseAction* data_base_action;
+
     void input_tool();
     void input_produser();
     void input_tool_description();
 
-public slots:
-    void receive_data_base_action(DataBaseAction *data_base_action2);
-    void refreshed_bd_slot();
+    void search_current_data();
+    void completion_data();
 
-signals:
-    void refreshing_bd();
+    void updating_data();
+
 };
 
-#endif // TOOLADDWINDOW_H
+#endif // UPDATETOOL_H

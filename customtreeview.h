@@ -11,14 +11,10 @@ class CustomTreeView : public QTreeView
     Q_OBJECT
 
 public:
-    CustomTreeView(QWidget *parent = nullptr) : QTreeView(parent)
-    {
-        setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(show_context_menu(const QPoint&)));
-    }
-
+    CustomTreeView(QWidget *parent = nullptr);
+    enum  signaltype{Add,Edit,Remove};
 private:
-    void set_heasers();
+    int selected_index();
 private slots:
     void show_context_menu(const QPoint &pos)
     {
@@ -39,18 +35,35 @@ private slots:
     {
         // Действия при выборе "Add"
         qDebug() << "Add clicked";
+        int hierarchy_level=selected_index();
+        if (hierarchy_level!=-1)
+        {
+            emit context_menu_signal(hierarchy_level,signaltype::Add);
+        }
     }
 
     void on_edit()
     {
         // Действия при выборе "Edit"
         qDebug() << "Edit clicked";
+        int hierarchy_level=selected_index();
+        if (hierarchy_level!=-1)
+        {
+            emit context_menu_signal(hierarchy_level,signaltype::Edit);
+        }
     }
 
     void on_remove()
     {
         // Действия при выборе "Remove"
         qDebug() << "Remove clicked";
+        int hierarchy_level=selected_index();
+        if (hierarchy_level!=-1)
+        {
+            emit context_menu_signal(hierarchy_level,signaltype::Remove);
+        }
     }
+signals:
+    void context_menu_signal (const int & hierarchy_level,const int &action_code);
 };
 #endif // CUSTOMTREEVIEW_H

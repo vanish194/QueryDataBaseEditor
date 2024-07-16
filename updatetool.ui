@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ToolAddWindow</class>
- <widget class="QDialog" name="ToolAddWindow">
+ <class>UpdateToolWindow</class>
+ <widget class="QDialog" name="UpdateToolWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Tool Add Window</string>
+   <string>Update Tool Window</string>
   </property>
   <layout class="QFormLayout" name="formLayout_2">
    <item row="2" column="0">
