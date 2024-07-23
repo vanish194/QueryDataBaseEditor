@@ -16,8 +16,8 @@ public:
     ~AdditionalMnemonicAddWindow();
 
 private:
-    int inital_unit_id=-1;
-    int derived_unit_id=-1;
+    int inital_unit_id = -1;
+    int derived_unit_id = -1;
     int main_mnemonic_id;
     int formula_id;
     int company_id;
@@ -36,7 +36,7 @@ private:
     QList<QString> list_company_name;
     QList<QString> list_main_mnemonic_name;
 
-    DataBaseAction* data_base_action;
+    DataBaseAction *data_base_action;
     Ui::AdditionalMnemonicAddWindow *ui;
 
     void input_conversion_formula();

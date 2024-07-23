@@ -16,7 +16,7 @@ public:
     explicit UpdateSensor(QWidget *parent = nullptr);
     ~UpdateSensor();
 public slots:
-    void recieve_data_name(QString& sensor_name_);
+    void recieve_data_name(QString &sensor_name_);
 
     void receive_data_base_action(DataBaseAction *data_base_action2);
 

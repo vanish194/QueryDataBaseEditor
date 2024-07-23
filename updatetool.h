@@ -1,4 +1,4 @@
-    #ifndef UPDATETOOL_H
+#ifndef UPDATETOOL_H
 #define UPDATETOOL_H
 
 #include <QDialog>
@@ -18,11 +18,10 @@ public:
     ~UpdateToolWindow();
 public slots:
 
-    void recieve_data_name(QString& tool_name);
+    void recieve_data_name(QString &tool_name);
 
     void receive_data_base_action(DataBaseAction *data_base_action2);
 private slots:
-
 
     void on_pushButton_3_clicked();
 
@@ -35,8 +34,6 @@ private slots:
     void on_pushButton_CLEAN_clicked();
 
 private:
-
-
     Ui::UpdateToolWindow *ui;
     QString tool_name;
     QString description;
@@ -50,7 +47,7 @@ private:
     int tool_id;
     int produser_id;
     QList<QString> list_produsers;
-    DataBaseAction* data_base_action;
+    DataBaseAction *data_base_action;
 
     void input_tool();
     void input_produser();
@@ -60,7 +57,6 @@ private:
     void completion_data();
 
     void updating_data();
-
 };
 
 #endif // UPDATETOOL_H

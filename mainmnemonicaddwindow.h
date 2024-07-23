@@ -28,7 +28,7 @@ private:
     QList<QString> list_sensor_name;
     QList<QString> list_type_name;
     QList<QString> list_unit_name;
-    DataBaseAction* data_base_action;
+    DataBaseAction *data_base_action;
 
     Ui::MainMnemonicAddWindow *ui;
     void input_main_mnemonic();

@@ -17,7 +17,7 @@ public:
     ~UpdateMainMnemonic();
 public slots:
 
-    void recieve_data_name(QString& main_mnemonic);
+    void recieve_data_name(QString &main_mnemonic);
 
     void receive_data_base_action(DataBaseAction *data_base_action2);
 
@@ -40,8 +40,7 @@ private:
     QList<QString> list_sensor_name;
     QList<QString> list_type_name;
     QList<QString> list_unit_name;
-    DataBaseAction* data_base_action;
-
+    DataBaseAction *data_base_action;
 
     void input_main_mnemonic();
     void input_type_of_unit();

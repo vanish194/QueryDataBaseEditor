@@ -44,7 +44,7 @@ private:
     int tool_id;
     int produser_id;
     QList<QString> list_produsers;
-    DataBaseAction* data_base_action;
+    DataBaseAction *data_base_action;
     void input_tool();
     void input_produser();
     void input_tool_description();

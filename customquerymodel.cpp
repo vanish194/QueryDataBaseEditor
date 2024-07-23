@@ -2,6 +2,4 @@
 
 CustomQueryModel::CustomQueryModel(QObject *parent)
     : QSqlQueryModel{parent}
-{
-
-}
+{}

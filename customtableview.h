@@ -1,8 +1,8 @@
 #ifndef CUSTOMTABLEVIEW_H
 #define CUSTOMTABLEVIEW_H
 
-#include <QTableView>
 #include <QHeaderView>
+#include <QTableView>
 #include "blobimagedelegate.h"
 class CustomTableView : public QTableView
 {
